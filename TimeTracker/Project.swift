@@ -14,6 +14,7 @@ class Project {
     var customerID: Int
     var projectName: String
     var projectID: Int
+    var beschreibung: String?
     
     init(customerName: String, customerID: Int, projectName: String, projectID: Int){
         self.customerName = customerName

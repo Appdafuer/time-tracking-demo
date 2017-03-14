@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		322A62181E7808CF00905E94 /* ServiceSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */; };
+		322A621A1E780A5600905E94 /* ServiceJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A62191E780A5600905E94 /* ServiceJSONParser.swift */; };
+		322A621C1E780AAC00905E94 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A621B1E780AAC00905E94 /* Service.swift */; };
+		322A621E1E783E7500905E94 /* PersistratingUserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A621D1E783E7500905E94 /* PersistratingUserContent.swift */; };
 		325174971E72B678003CEC2D /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325174961E72B678003CEC2D /* Project.swift */; };
 		325174991E72B971003CEC2D /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325174981E72B971003CEC2D /* JSONParser.swift */; };
 		3251749B1E72D76A003CEC2D /* ProjectSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */; };
@@ -17,6 +21,8 @@
 		3269AD0B1E71435F008563FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3269AD091E71435F008563FC /* LaunchScreen.storyboard */; };
 		3269AD161E714360008563FC /* TimeTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AD151E714360008563FC /* TimeTrackerTests.swift */; };
 		3269AD211E714360008563FC /* TimeTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AD201E714360008563FC /* TimeTrackerUITests.swift */; };
+		326DA2631E76AE1A0054564F /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DA2621E76AE1A0054564F /* ProjectCell.swift */; };
+		326DA2651E76B8FA0054564F /* NewDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DA2641E76B8FA0054564F /* NewDescription.swift */; };
 		46DC0FB9E08061D3775ACFAE /* Pods_TimeTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F70E0DE701C0EDA6A087D16 /* Pods_TimeTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSelectionTableViewController.swift; sourceTree = "<group>"; };
+		322A62191E780A5600905E94 /* ServiceJSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceJSONParser.swift; sourceTree = "<group>"; };
+		322A621B1E780AAC00905E94 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		322A621D1E783E7500905E94 /* PersistratingUserContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistratingUserContent.swift; sourceTree = "<group>"; };
 		325174961E72B678003CEC2D /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		325174981E72B971003CEC2D /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSelectionViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +64,8 @@
 		3269AD1C1E714360008563FC /* TimeTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3269AD201E714360008563FC /* TimeTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTrackerUITests.swift; sourceTree = "<group>"; };
 		3269AD221E714360008563FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		326DA2621E76AE1A0054564F /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		326DA2641E76B8FA0054564F /* NewDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDescription.swift; sourceTree = "<group>"; };
 		8F70E0DE701C0EDA6A087D16 /* Pods_TimeTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2EB9A704A216DDA1388B86C /* Pods-TimeTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTracker/Pods-TimeTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		CB5E2CE2AC80BDBFF4C63806 /* Pods-TimeTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTracker/Pods-TimeTracker.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +131,12 @@
 				325174961E72B678003CEC2D /* Project.swift */,
 				325174981E72B971003CEC2D /* JSONParser.swift */,
 				3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */,
+				326DA2621E76AE1A0054564F /* ProjectCell.swift */,
+				326DA2641E76B8FA0054564F /* NewDescription.swift */,
+				322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */,
+				322A62191E780A5600905E94 /* ServiceJSONParser.swift */,
+				322A621B1E780AAC00905E94 /* Service.swift */,
+				322A621D1E783E7500905E94 /* PersistratingUserContent.swift */,
 			);
 			path = TimeTracker;
 			sourceTree = "<group>";
@@ -344,9 +362,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				325174971E72B678003CEC2D /* Project.swift in Sources */,
+				322A621A1E780A5600905E94 /* ServiceJSONParser.swift in Sources */,
+				326DA2631E76AE1A0054564F /* ProjectCell.swift in Sources */,
+				322A62181E7808CF00905E94 /* ServiceSelectionTableViewController.swift in Sources */,
 				3251749B1E72D76A003CEC2D /* ProjectSelectionViewController.swift in Sources */,
 				3269AD031E71435F008563FC /* ViewController.swift in Sources */,
 				325174991E72B971003CEC2D /* JSONParser.swift in Sources */,
+				322A621C1E780AAC00905E94 /* Service.swift in Sources */,
+				326DA2651E76B8FA0054564F /* NewDescription.swift in Sources */,
+				322A621E1E783E7500905E94 /* PersistratingUserContent.swift in Sources */,
 				3269AD011E71435F008563FC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

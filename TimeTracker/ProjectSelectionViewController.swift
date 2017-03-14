@@ -14,6 +14,7 @@ class ProjectSelectionViewController : UITableViewController {
     
     var projects: [Project]?
     var delegate: ViewController?
+    var index:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +28,13 @@ class ProjectSelectionViewController : UITableViewController {
         Alamofire.request("https://my.clockodo.com/api/customers", headers: headers).responseJSON { response in
             
             if let JSON = response.result.value {
-                
                 self.projects = JSONParser(data: JSON).getProjects()
                 self.tableView.reloadData()
-                
+//                for elements in self.projects!{
+//                    print(elements.description)
+//                }
             }
+            
         }
 
         
@@ -52,8 +55,8 @@ class ProjectSelectionViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let selectedProject = projects?[indexPath.row] {
-            delegate?.projectSelected(project: selectedProject)
             self.dismiss(animated: true, completion: nil)
+            delegate?.projectSelected(project: selectedProject, atIndex: index)
         }        
     }
     
