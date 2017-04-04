@@ -9,18 +9,18 @@
 import Foundation
 
 class Clock {
-    
-    let id: Int
+
+    let clockID: Int
     let timeSince: Date
-    
-    init?(data: Any){
+
+    init?(data: Any) {
         guard let clock = data as? [String:Any],
         let params = clock["running"] as? [String:Any],
         let id = params["id"] as? Int,
         let timeSinceString = params["time_since"] as? String,
         let timeSince = Utils.dateFromString(stringDate: timeSinceString)
         else {return nil}
-        self.id = id
+        self.clockID = id
         self.timeSince = timeSince
     }
 }

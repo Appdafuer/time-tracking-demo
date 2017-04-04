@@ -9,7 +9,7 @@
 import Foundation
 
 class Project {
-    
+
     private let customerNameKey = "customerName"
     private let customerIDKey = "customerID"
     private let projectNameKey = "name"
@@ -17,7 +17,7 @@ class Project {
     private let descriptionKey = "description"
     private let serviceNameKey = "serviceName"
     private let serviceIDKey = "serviceID"
-    
+
     let customerName: String
     let customerID: Int
     let projectName: String
@@ -25,17 +25,17 @@ class Project {
     var beschreibung: String?
     var clock: Clock?
     var service: Service
-    
-    //MARK: Initializer
-    init(customerName: String, customerID: Int, projectName: String, projectID: Int){
+
+    // MARK: Initializer
+    init(customerName: String, customerID: Int, projectName: String, projectID: Int) {
         self.customerName = customerName
         self.customerID = customerID
         self.projectName = projectName
         self.projectID = projectID
         self.service = Service(serviceName: "Programmierung", serviceID: 117464)
     }
-    
-    init?(fromDictionary dictionary: Any){
+
+    init?(fromDictionary dictionary: Any) {
         if let project = dictionary as? [String:Any],
             let customerName = project[customerNameKey] as? String,
             let customerID = project[customerIDKey] as? Int,
@@ -53,10 +53,10 @@ class Project {
             return nil
         }
     }
-    
-    //MARK: Dictionary
-    func toDictionary() -> [String:Any]{
-        var project = [String:Any]()
+
+    // MARK: Dictionary
+    func toDictionary() -> [String:Any] {
+        var project = [String: Any]()
         project[customerNameKey] = self.customerName
         project[customerIDKey] = self.customerID
         project[projectNameKey] = self.projectName
@@ -66,10 +66,10 @@ class Project {
         project[serviceIDKey] = self.service.serviceID
         return project
     }
-    
-    //MARK: toString()
+
+    // MARK: toString()
     public var description: String {
         return "Customer Name: \(customerName) \nCustomer ID: \(customerID) \nProject Name: \(projectName) \nProject ID: \(projectID)"
     }
-    
+
 }

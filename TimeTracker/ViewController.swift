@@ -10,20 +10,20 @@ import UIKit
 import Alamofire
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-        
+
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var projects: UICollectionView!
-    
-    private var projectsArray:[Project?] =  []
+
+    private var projectsArray: [Project?] =  []
     var selectedService: Service?
-    
-    var timer:Timer?
-    
+
+    var timer: Timer?
+
     private let saveRemoveKey = "SelectedProjects"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setNavigationBar()
         projects.dataSource = self
         projects.delegate = self
@@ -36,10 +36,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.projects.reloadData()
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         projects.collectionViewLayout.invalidateLayout()
     }
 
@@ -47,53 +47,55 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    //MARK: Navigation Bar
+
+    // MARK: Navigation Bar
     private func setNavigationBar() {
         self.navigationItem.title = "Time tracking"
         self.navigationItem.hidesBackButton = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTicket))
     }
-    
-    func logout(){
+
+    func logout() {
         let alert = UIAlertController(title: "Logout", message: "Do you realy want to logout?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in
             LoginLogicSingelton.sharedInstance.removeAuthorizationValues()
             self.removeDataFromUserDefaultsAndLocals()
             self.navigationController?.popToRootViewController(animated: true)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {action in }))
-        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in }))
+
         self.present(alert, animated: true, completion: nil)
     }
-    
-    func addTicket(){
+
+    func addTicket() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        // swiftlint:disable:next force_cast
         let profileNC = storyboard.instantiateViewController(withIdentifier: "ProjectNavController") as! UINavigationController
+        // swiftlint:disable:next force_cast
         let vc = profileNC.topViewController as! ProjectSelectionViewController
         vc.delegate = self
         vc.index = projectsArray.count
         self.present(profileNC, animated: true, completion: nil)
     }
-    
-    //MARK: UserDefaults
-    private func saveDataInUserDefaults(){
+
+    // MARK: UserDefaults
+    private func saveDataInUserDefaults() {
         let us = UserDefaults.standard
         let serializer = ProjectsSerializer()
         us.set(serializer.serialize(projects: projectsArray), forKey: saveRemoveKey)
-        
+
         us.synchronize()
     }
-        
-    private func removeDataFromUserDefaultsAndLocals(){
+
+    private func removeDataFromUserDefaultsAndLocals() {
         let us = UserDefaults.standard
         us.removeObject(forKey: saveRemoveKey)
         projectsArray = []
     }
-    
-    //MARK: Project Settings
-    func projectSelected(project: Project, atIndex index:Int){
+
+    // MARK: Project Settings
+    func projectSelected(project: Project, atIndex index: Int) {
         if index == projectsArray.count {
             projectsArray.append(project)
         } else {
@@ -102,8 +104,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         setProjectDescription(index: index)
         projects.reloadData()
     }
-    
-    func setProjectDescription(index:Int){
+
+    func setProjectDescription(index: Int) {
         AlertGenerator.showTextInputAlert(onViewController: self) { (newText) in
             if self.projectsArray[index]?.clock != nil {
                 self.stopTimer(project: self.projectsArray[index]!)
@@ -115,11 +117,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.toggleTimer(forProject: self.projectsArray[index])
         }
     }
-    
-    //MARK: Timer
-    private func toggleTimer(forProject project: Project?){
+
+    // MARK: Timer
+    private func toggleTimer(forProject project: Project?) {
         if let project = project {
-            if project.beschreibung == nil{
+            if project.beschreibung == nil {
                 label1.text = "Bitte Beschreibung eingeben"
             } else {
                 if getRunningProject() != nil {
@@ -132,15 +134,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     startClock(project: project)
                 }
             }
-        }else {
+        } else {
             label1.text = "Bitte gültiges Ticket wählen."
         }
     }
-    
+
     private func startTimer() {
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.timerFired(_:)), userInfo: nil, repeats: true)
     }
-   
+
     private func stopTimer(project: Project) {
 
         ClockLogic.sharedInstance.stopClock(project: project) { error in
@@ -152,31 +154,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.label1.text = "Wählen sie ein Ticket."
                 self.projects.reloadData()
             }
-            
+
         }
     }
-    
-    @objc func timerFired(_ timer:Timer) {
+
+    @objc func timerFired(_ timer: Timer) {
         guard let project = getRunningProject(),
         let clock = project.clock else {return}
 
         let seconds = Date().timeIntervalSince(clock.timeSince).rounded()
         label1.text = Utils.timeToString(time: Int(seconds)) + "\n " + project.customerName + " - " + project.projectName
     }
-    
-    //MARK: Get Running Project
+
+    // MARK: Get Running Project
     private func getRunningProject() -> Project? {
-        for project in projectsArray {
-            if project?.clock != nil {
+        for project in projectsArray where project?.clock != nil {
                 return project
-            }
         }
         return nil
     }
-    
-    //MARK: Start Clock
+
+    // MARK: Start Clock
     private func startClock(project: Project) {
-        
+
         ClockLogic.sharedInstance.startClockOnline(project: project, serviceID: 117464) { error in
             if error != nil {
                 self.label1.text = "Could not start Timer. Please try again"
@@ -186,36 +186,37 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
         }
     }
-    
-    //MARK: Double Timer Alert
+
+    // MARK: Double Timer Alert
     private func doubleTimerAlert(project: Project) {
         let alert = UIAlertController(title: "Active Tracker", message: "There is already an active tracker. Do you really want to start a new one?", preferredStyle: UIAlertControllerStyle.actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.cancel, handler: {action in
+
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.cancel, handler: {_ in
             self.stopTimer(project: project)
             self.startClock(project: project)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.destructive, handler: {action in }))
-        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.destructive, handler: {_ in }))
+
         self.present(alert, animated: true, completion: nil)
     }
-    
-    //MARK: UICollectionViewDataSource
+
+    // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return projectsArray.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let project = projectsArray[indexPath.row]
         toggleTimer(forProject: project)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TicketCell", for: indexPath) as! TicketCell
         cell.viewController = self
         cell.index = indexPath.row
         cell.lblNumber.text = String(indexPath.row)
-        
+
         if let project = projectsArray[indexPath.row] {
             cell.lblKunde.text = ""
             cell.lblProject.text = ""
@@ -226,24 +227,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         return cell
     }
-    
-    //MARK: UICollectionViewDelegateFlowLayout
+
+    // MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // swiftlint:disable:next force_cast
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
         let size = collectionView.frame.size
         let bottom = flowLayout.sectionInset.bottom
         let top = flowLayout.sectionInset.top
         let left = flowLayout.sectionInset.left
         let rigth = flowLayout.sectionInset.right
-        
+
         var cellSize = flowLayout.itemSize
         cellSize.height = (size.height - bottom - top)/2 - 5
         cellSize.width = (size.width - left - rigth)/2 - 5
-        
+
         return cellSize
     }
 }
-
-//1. button press -> starten, wenn ich wieder drücke, zeit ausgeben und evtl. neue starten
-// immer wenn eine zeit gestoppt ist, mit print() ausgeben
-

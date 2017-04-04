@@ -9,15 +9,15 @@
 import Foundation
 
 class SerializationAndDeserialization {
-    
-    func Serialization(projects: [Project?]) -> String{
-        
+
+    func serialization(projects: [Project?]) -> String {
+
         var Serialized = ""
-        
-        for i in 0 ..< projects.count - 1{
+
+        for i in 0 ..< projects.count - 1 {
             Serialized += cust
         }
-        
+
     }
-    
+
 }

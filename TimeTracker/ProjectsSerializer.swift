@@ -9,9 +9,9 @@
 import Foundation
 
 class ProjectsSerializer {
-    
-    //MARK: Serialize
-    func serialize(projects: [Project?]) -> [Any]{
+
+    // MARK: Serialize
+    func serialize(projects: [Project?]) -> [Any] {
         var dictionaries = [Any]()
         for project in projects {
             let dictionary = project?.toDictionary()
@@ -19,9 +19,9 @@ class ProjectsSerializer {
         }
         return dictionaries
     }
-    
-    //MARK: Deserialize
-    func deserialize(dictionaries: [Any]) -> [Project?]{
+
+    // MARK: Deserialize
+    func deserialize(dictionaries: [Any]) -> [Project?] {
         var projects = [Project?]()
         for dictionary in dictionaries {
             let project = Project(fromDictionary: dictionary)

@@ -11,17 +11,17 @@ import Foundation
 class Service {
     var serviceName: String
     var serviceID: Int
-    
-    init(serviceName: String, serviceID: Int){
+
+    init(serviceName: String, serviceID: Int) {
         self.serviceName = serviceName
         self.serviceID = serviceID
     }
-    
-    init?(fromDictionary dictionary: Any){        
+
+    init?(fromDictionary dictionary: Any) {
         guard let service = dictionary as? [String:Any] else {return nil}
         guard let name = service ["name"] as? String else {return nil}
         guard let id = service ["id"] as? Int else {return nil}
         self.serviceName = name
-        self.serviceID = id        
+        self.serviceID = id
     }
 }

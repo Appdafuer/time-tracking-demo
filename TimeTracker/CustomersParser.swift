@@ -10,12 +10,12 @@ import Foundation
 
 class CustomersParser {
 
-    //MARK: All active Projects from Clockodo
+    // MARK: All active Projects from Clockodo
     func getAllProjects(data: Any) -> [Project] {
         var projects = [Project]()
         guard let casted = data as? [String:Any] else {return []}
         guard let customers = casted["customers"] as? [Any] else {return []}
-        for element in customers{
+        for element in customers {
             guard let customer = element as? [String:Any] else {return []}
             guard let active = customer["active"] as? Bool else {return []}
             if active == true {
@@ -27,8 +27,8 @@ class CustomersParser {
         }
         return projects
     }
-    
-    private func parseProjects(customer: [String:Any], customerName: String, customerID: Int) -> [Project]{
+
+    private func parseProjects(customer: [String:Any], customerName: String, customerID: Int) -> [Project] {
         var projects = [Project]()
         guard let projectsDictionary = customer["projects"] as? [Any] else {return []}
         for element in projectsDictionary {
