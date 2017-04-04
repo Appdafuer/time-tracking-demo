@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+class SerializationAndDeserialization {
+    
+    func Serialization(projects: [Project?]) -> String{
+        
+        var Serialized = ""
+        
+        for i in 0 ..< projects.count - 1{
+            Serialized += cust
+        }
+        
+    }
+    
+}

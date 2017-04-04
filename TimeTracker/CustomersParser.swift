@@ -8,10 +8,10 @@
 
 import Foundation
 
-class JSONParser {
-    
-    
-    func parseCustomers(data: Any) -> [Project]{
+class CustomersParser {
+
+    //MARK: All active Projects from Clockodo
+    func getAllProjects(data: Any) -> [Project] {
         var projects = [Project]()
         guard let casted = data as? [String:Any] else {return []}
         guard let customers = casted["customers"] as? [Any] else {return []}
@@ -42,6 +42,4 @@ class JSONParser {
         }
         return projects
     }
-
-    
 }

@@ -11,6 +11,7 @@ import UIKit
 
 class AlertGenerator {
     
+    //MARK: Show Alert 
     static func showTextInputAlert(onViewController viewController:UIViewController, completion:@escaping (String) -> ()) {
         let alert = UIAlertController(title: "Neue Beschreibung", message: "Geben sie eine neue Beschreibung ein:", preferredStyle: .alert)
         

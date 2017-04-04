@@ -16,30 +16,37 @@ class ProjectSelectionViewController : UITableViewController {
     var delegate: ViewController?
     var index:Int!
     
+    //MARK: Customer Request
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNavBar()
+    
         var headers: HTTPHeaders = [:]
-        
-        if let authorizationHeader = Request.authorizationHeader(user: "frederic@appdafuer.com", password: "ezft7noum5jh2ml3hni8coortmynv2u5") {
+        if let authorizationHeader = Request.authorizationHeader(user: LoginLogicSingelton.sharedInstance.username!, password: LoginLogicSingelton.sharedInstance.password!) {
             headers[authorizationHeader.key] = authorizationHeader.value
         }
         
         Alamofire.request("https://my.clockodo.com/api/customers", headers: headers).responseJSON { response in
             
             if let JSON = response.result.value {
-                self.projects = JSONParser(data: JSON).getProjects()
+                self.projects = CustomersParser().getAllProjects(data: JSON)
                 self.tableView.reloadData()
-//                for elements in self.projects!{
-//                    print(elements.description)
-//                }
             }
-            
         }
-
-        
     }
     
+    //MARK: Navigation Bar
+    private func setNavBar(){
+        self.navigationItem.title = "Projekte"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+    }
+    
+    func close(){
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK: TableView Settings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let counter = projects?.count {
             return counter
@@ -55,8 +62,11 @@ class ProjectSelectionViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let selectedProject = projects?[indexPath.row] {
-            self.dismiss(animated: true, completion: nil)
-            delegate?.projectSelected(project: selectedProject, atIndex: index)
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ServiceSelectionViewController") as! ServiceSelectionTableViewController
+            vc.delegate = delegate
+            vc.project = selectedProject
+            vc.index = index
+            self.navigationController?.pushViewController(vc, animated: true)
         }        
     }
     

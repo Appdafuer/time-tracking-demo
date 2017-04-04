@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		320062131E93979A0036D83B /* ClockLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320062121E93979A0036D83B /* ClockLogic.swift */; };
+		321694CB1E8BB3B900353DB0 /* ProjectsSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321694CA1E8BB3B900353DB0 /* ProjectsSerializer.swift */; };
+		32241D221E927BB000402B06 /* TicketLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32241D211E927BB000402B06 /* TicketLoader.swift */; };
+		32241D241E92891400402B06 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32241D231E92891400402B06 /* Clock.swift */; };
+		32241D261E928B8E00402B06 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32241D251E928B8E00402B06 /* Utils.swift */; };
+		32241D281E92970500402B06 /* TimeTrackerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32241D271E92970500402B06 /* TimeTrackerError.swift */; };
 		322A62181E7808CF00905E94 /* ServiceSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */; };
-		322A621A1E780A5600905E94 /* ServiceJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A62191E780A5600905E94 /* ServiceJSONParser.swift */; };
 		322A621C1E780AAC00905E94 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A621B1E780AAC00905E94 /* Service.swift */; };
 		322A621E1E783E7500905E94 /* PersistratingUserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A621D1E783E7500905E94 /* PersistratingUserContent.swift */; };
 		325174971E72B678003CEC2D /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325174961E72B678003CEC2D /* Project.swift */; };
-		325174991E72B971003CEC2D /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325174981E72B971003CEC2D /* JSONParser.swift */; };
+		325174991E72B971003CEC2D /* CustomersParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325174981E72B971003CEC2D /* CustomersParser.swift */; };
 		3251749B1E72D76A003CEC2D /* ProjectSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */; };
+		32631EF81E8BEB97004AEFB7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32631EF71E8BEB97004AEFB7 /* LoginViewController.swift */; };
+		32631EFA1E8C05E3004AEFB7 /* LoginLogicSingelton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32631EF91E8C05E3004AEFB7 /* LoginLogicSingelton.swift */; };
 		3269AD011E71435F008563FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AD001E71435F008563FC /* AppDelegate.swift */; };
 		3269AD031E71435F008563FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AD021E71435F008563FC /* ViewController.swift */; };
 		3269AD061E71435F008563FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3269AD041E71435F008563FC /* Main.storyboard */; };
@@ -21,8 +28,8 @@
 		3269AD0B1E71435F008563FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3269AD091E71435F008563FC /* LaunchScreen.storyboard */; };
 		3269AD161E714360008563FC /* TimeTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AD151E714360008563FC /* TimeTrackerTests.swift */; };
 		3269AD211E714360008563FC /* TimeTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AD201E714360008563FC /* TimeTrackerUITests.swift */; };
-		326DA2631E76AE1A0054564F /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DA2621E76AE1A0054564F /* ProjectCell.swift */; };
-		326DA2651E76B8FA0054564F /* NewDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DA2641E76B8FA0054564F /* NewDescription.swift */; };
+		326DA2631E76AE1A0054564F /* TicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DA2621E76AE1A0054564F /* TicketCell.swift */; };
+		326DA2651E76B8FA0054564F /* AlertGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DA2641E76B8FA0054564F /* AlertGenerator.swift */; };
 		46DC0FB9E08061D3775ACFAE /* Pods_TimeTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F70E0DE701C0EDA6A087D16 /* Pods_TimeTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,13 +51,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		320062121E93979A0036D83B /* ClockLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockLogic.swift; sourceTree = "<group>"; };
+		321694CA1E8BB3B900353DB0 /* ProjectsSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsSerializer.swift; sourceTree = "<group>"; };
+		32241D211E927BB000402B06 /* TicketLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketLoader.swift; sourceTree = "<group>"; };
+		32241D231E92891400402B06 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		32241D251E928B8E00402B06 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		32241D271E92970500402B06 /* TimeTrackerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTrackerError.swift; sourceTree = "<group>"; };
 		322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSelectionTableViewController.swift; sourceTree = "<group>"; };
-		322A62191E780A5600905E94 /* ServiceJSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceJSONParser.swift; sourceTree = "<group>"; };
 		322A621B1E780AAC00905E94 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		322A621D1E783E7500905E94 /* PersistratingUserContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistratingUserContent.swift; sourceTree = "<group>"; };
 		325174961E72B678003CEC2D /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		325174981E72B971003CEC2D /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		325174981E72B971003CEC2D /* CustomersParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersParser.swift; sourceTree = "<group>"; };
 		3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSelectionViewController.swift; sourceTree = "<group>"; };
+		32631EF71E8BEB97004AEFB7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		32631EF91E8C05E3004AEFB7 /* LoginLogicSingelton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginLogicSingelton.swift; sourceTree = "<group>"; };
 		3269ACFD1E71435F008563FC /* TimeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3269AD001E71435F008563FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3269AD021E71435F008563FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,8 +78,8 @@
 		3269AD1C1E714360008563FC /* TimeTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3269AD201E714360008563FC /* TimeTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTrackerUITests.swift; sourceTree = "<group>"; };
 		3269AD221E714360008563FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		326DA2621E76AE1A0054564F /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
-		326DA2641E76B8FA0054564F /* NewDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDescription.swift; sourceTree = "<group>"; };
+		326DA2621E76AE1A0054564F /* TicketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCell.swift; sourceTree = "<group>"; };
+		326DA2641E76B8FA0054564F /* AlertGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertGenerator.swift; sourceTree = "<group>"; };
 		8F70E0DE701C0EDA6A087D16 /* Pods_TimeTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2EB9A704A216DDA1388B86C /* Pods-TimeTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTracker/Pods-TimeTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		CB5E2CE2AC80BDBFF4C63806 /* Pods-TimeTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTracker/Pods-TimeTracker.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +111,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32241D1B1E926D0D00402B06 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				32241D1D1E926D8800402B06 /* Ticket Overview */,
+				32631EF71E8BEB97004AEFB7 /* LoginViewController.swift */,
+				3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */,
+				322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */,
+				326DA2641E76B8FA0054564F /* AlertGenerator.swift */,
+				3269AD041E71435F008563FC /* Main.storyboard */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		32241D1C1E926D1F00402B06 /* Business Logic */ = {
+			isa = PBXGroup;
+			children = (
+				32241D1F1E926FE300402B06 /* JSON */,
+				322A621D1E783E7500905E94 /* PersistratingUserContent.swift */,
+				32631EF91E8C05E3004AEFB7 /* LoginLogicSingelton.swift */,
+				32241D211E927BB000402B06 /* TicketLoader.swift */,
+				320062121E93979A0036D83B /* ClockLogic.swift */,
+			);
+			name = "Business Logic";
+			sourceTree = "<group>";
+		};
+		32241D1D1E926D8800402B06 /* Ticket Overview */ = {
+			isa = PBXGroup;
+			children = (
+				3269AD021E71435F008563FC /* ViewController.swift */,
+				326DA2621E76AE1A0054564F /* TicketCell.swift */,
+			);
+			name = "Ticket Overview";
+			sourceTree = "<group>";
+		};
+		32241D1E1E926E6F00402B06 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				325174961E72B678003CEC2D /* Project.swift */,
+				322A621B1E780AAC00905E94 /* Service.swift */,
+				32241D231E92891400402B06 /* Clock.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		32241D1F1E926FE300402B06 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				321694CA1E8BB3B900353DB0 /* ProjectsSerializer.swift */,
+				325174981E72B971003CEC2D /* CustomersParser.swift */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 		3269ACF41E71435F008563FC = {
 			isa = PBXGroup;
 			children = (
@@ -122,21 +189,15 @@
 		3269ACFF1E71435F008563FC /* TimeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				32241D1E1E926E6F00402B06 /* Model */,
+				32241D1C1E926D1F00402B06 /* Business Logic */,
+				32241D1B1E926D0D00402B06 /* User Interface */,
 				3269AD001E71435F008563FC /* AppDelegate.swift */,
-				3269AD021E71435F008563FC /* ViewController.swift */,
-				3269AD041E71435F008563FC /* Main.storyboard */,
 				3269AD071E71435F008563FC /* Assets.xcassets */,
 				3269AD091E71435F008563FC /* LaunchScreen.storyboard */,
 				3269AD0C1E71435F008563FC /* Info.plist */,
-				325174961E72B678003CEC2D /* Project.swift */,
-				325174981E72B971003CEC2D /* JSONParser.swift */,
-				3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */,
-				326DA2621E76AE1A0054564F /* ProjectCell.swift */,
-				326DA2641E76B8FA0054564F /* NewDescription.swift */,
-				322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */,
-				322A62191E780A5600905E94 /* ServiceJSONParser.swift */,
-				322A621B1E780AAC00905E94 /* Service.swift */,
-				322A621D1E783E7500905E94 /* PersistratingUserContent.swift */,
+				32241D251E928B8E00402B06 /* Utils.swift */,
+				32241D271E92970500402B06 /* TimeTrackerError.swift */,
 			);
 			path = TimeTracker;
 			sourceTree = "<group>";
@@ -183,6 +244,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3269AD251E714360008563FC /* Build configuration list for PBXNativeTarget "TimeTracker" */;
 			buildPhases = (
+				32A9BCB21E93E9C700310B4F /* ShellScript */,
 				D3A55FF369F839EF47FDB847 /* [CP] Check Pods Manifest.lock */,
 				3269ACF91E71435F008563FC /* Sources */,
 				3269ACFA1E71435F008563FC /* Frameworks */,
@@ -309,6 +371,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		32A9BCB21E93E9C700310B4F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		7013EA372F486A477BAB01CC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,15 +437,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				325174971E72B678003CEC2D /* Project.swift in Sources */,
-				322A621A1E780A5600905E94 /* ServiceJSONParser.swift in Sources */,
-				326DA2631E76AE1A0054564F /* ProjectCell.swift in Sources */,
+				326DA2631E76AE1A0054564F /* TicketCell.swift in Sources */,
 				322A62181E7808CF00905E94 /* ServiceSelectionTableViewController.swift in Sources */,
+				32631EFA1E8C05E3004AEFB7 /* LoginLogicSingelton.swift in Sources */,
+				32241D281E92970500402B06 /* TimeTrackerError.swift in Sources */,
 				3251749B1E72D76A003CEC2D /* ProjectSelectionViewController.swift in Sources */,
 				3269AD031E71435F008563FC /* ViewController.swift in Sources */,
-				325174991E72B971003CEC2D /* JSONParser.swift in Sources */,
+				325174991E72B971003CEC2D /* CustomersParser.swift in Sources */,
 				322A621C1E780AAC00905E94 /* Service.swift in Sources */,
-				326DA2651E76B8FA0054564F /* NewDescription.swift in Sources */,
+				326DA2651E76B8FA0054564F /* AlertGenerator.swift in Sources */,
+				32241D241E92891400402B06 /* Clock.swift in Sources */,
+				320062131E93979A0036D83B /* ClockLogic.swift in Sources */,
+				32241D221E927BB000402B06 /* TicketLoader.swift in Sources */,
 				322A621E1E783E7500905E94 /* PersistratingUserContent.swift in Sources */,
+				321694CB1E8BB3B900353DB0 /* ProjectsSerializer.swift in Sources */,
+				32631EF81E8BEB97004AEFB7 /* LoginViewController.swift in Sources */,
+				32241D261E928B8E00402B06 /* Utils.swift in Sources */,
 				3269AD011E71435F008563FC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

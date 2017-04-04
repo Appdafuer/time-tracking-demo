@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct TimeTrackerError: Error {
+    var title: String
+}

@@ -14,27 +14,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var projects: UICollectionView!
     
-    var start: Date?
-    var ticket:String = ""
-    
-    var selectedProjects:[Project?] =  [nil,nil,nil,nil]
+    private var projectsArray:[Project?] =  []
+    var selectedService: Service?
     
     var timer:Timer?
     
-    let persistratingUserContent = PersistratingUserContent()
-    
-    //var dictionary: [String:String] = ["a":"b", "d":"b"];
-   
-    var array: [String] = ["a", "a"];
+    private let saveRemoveKey = "SelectedProjects"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        selectedProjects = persistratingUserContent.load()
-        projects.reloadData()
-        
+        setNavigationBar()
         projects.dataSource = self
         projects.delegate = self
+
+        TicketLoader.sharedInstance.loadTickets { (projects) in
+            self.projectsArray = projects
+            if self.getRunningProject() != nil {
+                self.startTimer()
+            }
+            self.projects.reloadData()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,113 +48,88 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: Navigation Bar
+    private func setNavigationBar() {
+        self.navigationItem.title = "Time tracking"
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTicket))
+    }
+    
+    func logout(){
+        let alert = UIAlertController(title: "Logout", message: "Do you realy want to logout?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
+            LoginLogicSingelton.sharedInstance.removeAuthorizationValues()
+            self.removeDataFromUserDefaultsAndLocals()
+            self.navigationController?.popToRootViewController(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {action in }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func addTicket(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileNC = storyboard.instantiateViewController(withIdentifier: "ProjectNavController") as! UINavigationController
+        let vc = profileNC.topViewController as! ProjectSelectionViewController
+        vc.delegate = self
+        vc.index = projectsArray.count
+        self.present(profileNC, animated: true, completion: nil)
+    }
+    
+    //MARK: UserDefaults
+    private func saveDataInUserDefaults(){
+        let us = UserDefaults.standard
+        let serializer = ProjectsSerializer()
+        us.set(serializer.serialize(projects: projectsArray), forKey: saveRemoveKey)
+        
+        us.synchronize()
+    }
+        
+    private func removeDataFromUserDefaultsAndLocals(){
+        let us = UserDefaults.standard
+        us.removeObject(forKey: saveRemoveKey)
+        projectsArray = []
+    }
+    
+    //MARK: Project Settings
     func projectSelected(project: Project, atIndex index:Int){
-        selectedProjects[index] = project
+        if index == projectsArray.count {
+            projectsArray.append(project)
+        } else {
+            projectsArray[index] = project
+        }
         setProjectDescription(index: index)
         projects.reloadData()
     }
     
     func setProjectDescription(index:Int){
-        _ = NewDescription(viewController: self) { (newText) in
-            self.selectedProjects[index]?.beschreibung = newText
-            self.projects.reloadData()
-            self.persistratingUserContent.save(data: self.selectedProjects)
-            self.initializeTimer(index: index)
-            self.persistratingUserContent.load()
-        }
-    }
-    
-    func startTimer(ticket: String) {
-        start = Date()
-        self.ticket = ticket
-        label1.text = "Timer " + ticket + " started at " + dateToString(date: start!)
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.timerFired(_:)), userInfo: nil, repeats: true)
-    }
-   
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-        let stop = Date()
-        label1.text = "Timer " + ticket + " stopped at " + dateToString(date: stop)
-        let time:TimeInterval = stop.timeIntervalSince(start!)
-        print(String(format: "Stopped time: %.1f sec" , time))
-        start = nil
-        postTime(time: Int(time))
-    }
-    
-    func postTime(time: Int){
-        var headers: HTTPHeaders = [:]
-        
-        if let authorizationHeader = Request.authorizationHeader(user: "", password: "") {
-            headers[authorizationHeader.key] = authorizationHeader.value
-        }
-        
-        let parameters: Parameters = [
-            "customers_id" : selectedProjects[Int(ticket)!]?.customerID ?? 123456,
-            "services_id" : 117464,
-            "billable" : 1,
-            "duration" : time,
-            "text" : selectedProjects[Int(ticket)!]?.description ?? ""
-        ]
-        
-        Alamofire.request("https://my.clockodo.com/api/entries", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-            
-            if let JSON = response.result.value {
-                print(JSON)
+        AlertGenerator.showTextInputAlert(onViewController: self) { (newText) in
+            if self.projectsArray[index]?.clock != nil {
+                self.stopTimer(project: self.projectsArray[index]!)
+                self.projectsArray[index]?.clock = nil
             }
+            self.projectsArray[index]?.beschreibung = newText
+            self.projects.reloadData()
+            self.saveDataInUserDefaults()
+            self.toggleTimer(forProject: self.projectsArray[index])
         }
-        
-        label1.text = "Wählen sie ein Ticket."
     }
     
-    func dateToString(date:Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        return formatter.string(from: date)
-    }
-    
-    func timeToString(time: Int) -> String {
-        var tmp:Int = time
-        
-        let hours:Int = tmp/3600
-        tmp = tmp%3600
-        let min:Int = tmp/60
-        tmp = tmp%60
-        
-        return String(format: "%02d:%02d:%02d", hours, min, tmp)
-        
-    }
-    
-    func doubleTimerAlert(fromButton button: String) {
-        let alert = UIAlertController(title: "Active Tracker", message: "There is already an active tracker. Do you really want to start a new one?", preferredStyle: UIAlertControllerStyle.actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.cancel, handler: {action in
-            self.stopTimer()
-            self.startTimer(ticket: button)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.destructive, handler: {action in }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-    @objc func timerFired(_ timer:Timer) {
-        let tmp:Date = Date()
-        let seconds = tmp.timeIntervalSince(start!).rounded()
-        label1.text = timeToString(time: Int(seconds)) + "\n" + (selectedProjects[Int(ticket)!]?.customerName)! + " - " + (selectedProjects[Int(ticket)!]?.projectName)!
-    }
-    
-    func initializeTimer(index: Int){
-        if selectedProjects[index] != nil {
-            if selectedProjects[index]?.beschreibung == nil{
+    //MARK: Timer
+    private func toggleTimer(forProject project: Project?){
+        if let project = project {
+            if project.beschreibung == nil{
                 label1.text = "Bitte Beschreibung eingeben"
             } else {
-                if start == nil {
-                    startTimer(ticket: String(index))
-                } else if start != nil && ticket == String(index) {
-                    stopTimer()
+                if getRunningProject() != nil {
+                    if project.clock != nil {
+                        stopTimer(project: project)
+                    } else {
+                        doubleTimerAlert(project: project)
+                    }
                 } else {
-                    doubleTimerAlert(fromButton: String(index))
+                    startClock(project: project)
                 }
             }
         }else {
@@ -162,28 +137,92 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
+    private func startTimer() {
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.timerFired(_:)), userInfo: nil, repeats: true)
+    }
+   
+    private func stopTimer(project: Project) {
+
+        ClockLogic.sharedInstance.stopClock(project: project) { error in
+            if error != nil {
+                self.label1.text = "Could not stop Timer. Please try again"
+            } else {
+                self.timer?.invalidate()
+                self.timer = nil
+                self.label1.text = "Wählen sie ein Ticket."
+                self.projects.reloadData()
+            }
+            
+        }
+    }
+    
+    @objc func timerFired(_ timer:Timer) {
+        guard let project = getRunningProject(),
+        let clock = project.clock else {return}
+
+        let seconds = Date().timeIntervalSince(clock.timeSince).rounded()
+        label1.text = Utils.timeToString(time: Int(seconds)) + "\n " + project.customerName + " - " + project.projectName
+    }
+    
+    //MARK: Get Running Project
+    private func getRunningProject() -> Project? {
+        for project in projectsArray {
+            if project?.clock != nil {
+                return project
+            }
+        }
+        return nil
+    }
+    
+    //MARK: Start Clock
+    private func startClock(project: Project) {
+        
+        ClockLogic.sharedInstance.startClockOnline(project: project, serviceID: 117464) { error in
+            if error != nil {
+                self.label1.text = "Could not start Timer. Please try again"
+            } else {
+                self.startTimer()
+                self.projects.reloadData()
+            }
+        }
+    }
+    
+    //MARK: Double Timer Alert
+    private func doubleTimerAlert(project: Project) {
+        let alert = UIAlertController(title: "Active Tracker", message: "There is already an active tracker. Do you really want to start a new one?", preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.cancel, handler: {action in
+            self.stopTimer(project: project)
+            self.startClock(project: project)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.destructive, handler: {action in }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     //MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return projectsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        initializeTimer(index: indexPath.row)
+        let project = projectsArray[indexPath.row]
+        toggleTimer(forProject: project)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as! ProjectCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TicketCell", for: indexPath) as! TicketCell
         cell.viewController = self
         cell.index = indexPath.row
         cell.lblNumber.text = String(indexPath.row)
-        if selectedProjects[indexPath.row] != nil {
+        
+        if let project = projectsArray[indexPath.row] {
+            cell.lblKunde.text = ""
+            cell.lblProject.text = ""
+            cell.lblBeschreibung.text = ""
             cell.bBeschreibung.isHidden = false
-            cell.project = selectedProjects[indexPath.row]
-        }else{
-            cell.lblKunde.text = "Kunde"
-            cell.lblProject.text = "Projekt"
-            cell.lblBeschreibung.text = "Beschreibung"
-            cell.bBeschreibung.isHidden = true
+            cell.project = projectsArray[indexPath.row]
+            cell.contentView.backgroundColor = project.clock != nil ? UIColor.yellow : UIColor.white
         }
         return cell
     }

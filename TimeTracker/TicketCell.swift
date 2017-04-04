@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProjectCell: UICollectionViewCell {
+class TicketCell: UICollectionViewCell {
     
     @IBOutlet weak var bBeschreibung: UIButton!
     @IBOutlet weak var bTicket: UIButton!
@@ -23,10 +23,25 @@ class ProjectCell: UICollectionViewCell {
     var viewController: ViewController?
     var index:Int!
     
+    //MARK: Touch Actions
+    @IBAction func beschreibungTouched(_ sender: Any) {
+        viewController?.setProjectDescription(index: index)
+    }
+    
+    @IBAction func ticketTouched(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileNC = storyboard.instantiateViewController(withIdentifier: "ProjectNavController") as! UINavigationController
+        let vc = profileNC.topViewController as! ProjectSelectionViewController
+        vc.delegate = viewController
+        vc.index = index
+        viewController?.present(profileNC, animated: true, completion: nil)
+    }
+    
+    //MARK: Settings
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 1 
+        self.layer.borderWidth = 1
     }
     
     var project:Project? = nil {
@@ -37,18 +52,6 @@ class ProjectCell: UICollectionViewCell {
         }
     }
     
-    @IBAction func beschreibungTouched(_ sender: Any) {
-        viewController?.setProjectDescription(index: index)
-    }
-    
-    @IBAction func ticketTouched(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let profileNC = storyboard.instantiateViewController(withIdentifier: "ProjectNavController") as! UINavigationController
-        let vc = profileNC.topViewController as! ProjectSelectionViewController
-        vc.delegate = viewController
-        vc.index = index
-        viewController?.present(profileNC, animated: true, completion: nil)
-    }
+
     
 }

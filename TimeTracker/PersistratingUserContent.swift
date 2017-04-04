@@ -12,12 +12,14 @@ class PersistratingUserContent {
     
     let defaults = UserDefaults.standard    
     
+    //MARK: Save
     func save(data: [Project?]) {
         let userData = NSKeyedArchiver.archivedData(withRootObject: [Project?]())
         defaults.set(userData, forKey: "Selected Projects")
         defaults.synchronize()
     }
     
+    //MARK: Load
     func load() -> [Project?]{
         guard defaults.array(forKey: "Selected Projects") != nil else {return [nil, nil, nil, nil]}
         let loadedData = defaults.data(forKey: "SelectedProjects")

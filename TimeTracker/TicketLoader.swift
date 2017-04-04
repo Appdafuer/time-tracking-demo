@@ -1,5 +1,5 @@
 //
-//  TicketManager.swift
+//  TicketLoader.swift
 //  TimeTracker
 //
 //  Created by Frederic Forster on 03/04/2017.
@@ -9,9 +9,9 @@
 import Foundation
 import Alamofire
 
-class TicketManager {
+class TicketLoader {
     
-    static let sharedInstance = TicketManager()
+    static let sharedInstance = TicketLoader()
     
     private init(){}
     
@@ -28,15 +28,17 @@ class TicketManager {
         }
     }
     
+    //MARK: User Defaults
     private func loadDataFromUserDefaults() -> [Project?] {
         let us = UserDefaults.standard
-        let deserializer = ProjectsToJSON()
+        let deserializer = ProjectsSerializer()
         guard let tmpProjects = us.object(forKey: "SelectedProjects") as? [Any] else {return []}
         let projects = deserializer.deserialize(dictionaries: tmpProjects)
         
         return projects
     }
     
+    //MARK: Look for running online Projects
     private func lookForUnclosedProjects(completion: @escaping (_ runningProject: Project?) -> ()){
         var headers: HTTPHeaders = [:]
         
@@ -72,6 +74,7 @@ class TicketManager {
         
     }
     
+    //MARK: Compare existing Projects with running Project
     private func combine(projects: [Project?], withRunningProject runningProject: Project) -> [Project?] {
         var found = false
         for project in projects {
@@ -93,6 +96,7 @@ class TicketManager {
         return result
     }
     
+    //MARK: Get Project Data for ID's
     private func getProjectFrom(customerID: Int, projectID: Int, description: String, completion: @escaping (Project?) -> ()) {
         //First load all project Data, then create a new Ticket for the given Project
         
