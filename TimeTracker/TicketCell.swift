@@ -42,10 +42,13 @@ class ProjectCell: UICollectionViewCell {
     }
     
     @IBAction func ticketTouched(_ sender: Any) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProjectSelectionViewController") as! ProjectSelectionViewController
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileNC = storyboard.instantiateViewController(withIdentifier: "ProjectNavController") as! UINavigationController
+        let vc = profileNC.topViewController as! ProjectSelectionViewController
         vc.delegate = viewController
         vc.index = index
-        viewController?.present(vc, animated: true, completion: nil)
+        viewController?.present(profileNC, animated: true, completion: nil)
     }
     
 }
