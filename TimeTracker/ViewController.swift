@@ -34,6 +34,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.startTimer()
             }
             self.projects.reloadData()
+            LoadingViewGenerator.dismissView()
         }
     }
 
@@ -57,10 +58,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     func logout() {
-        let alert = UIAlertController(title: "Logout", message: "Do you realy want to logout?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Logout", message: "Wollen sie sich wirklich ausloggen?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in
+            if let runningProject = self.getRunningProject() {
+                self.stopTimer(project: runningProject)
+            }
             LoginLogicSingelton.sharedInstance.removeAuthorizationValues()
             self.removeDataFromUserDefaultsAndLocals()
+            LoadingViewGenerator.dismissView()
             self.navigationController?.popToRootViewController(animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in }))
@@ -77,6 +82,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         vc.delegate = self
         vc.index = projectsArray.count
         self.present(profileNC, animated: true, completion: nil)
+    }
+
+    func removeTicket(atIndex index: Int) {
+        if projectsArray[index]?.clock != nil {
+            stopTimer(project: projectsArray[index]!)
+        }
+        projectsArray.remove(at: index)
+        projects.reloadData()
+        saveDataInUserDefaults()
     }
 
     // MARK: UserDefaults
@@ -192,7 +206,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let alert = UIAlertController(title: "Active Tracker", message: "There is already an active tracker. Do you really want to start a new one?", preferredStyle: UIAlertControllerStyle.actionSheet)
 
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.cancel, handler: {_ in
-            self.stopTimer(project: project)
+            self.stopTimer(project: self.getRunningProject()!)
             self.startClock(project: project)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.destructive, handler: {_ in }))
@@ -215,7 +229,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TicketCell", for: indexPath) as! TicketCell
         cell.viewController = self
         cell.index = indexPath.row
-        cell.lblNumber.text = String(indexPath.row)
 
         if let project = projectsArray[indexPath.row] {
             cell.lblKunde.text = ""
@@ -223,7 +236,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cell.lblBeschreibung.text = ""
             cell.bBeschreibung.isHidden = false
             cell.project = projectsArray[indexPath.row]
-            cell.contentView.backgroundColor = project.clock != nil ? UIColor.yellow : UIColor.white
+            cell.contentView.backgroundColor = project.clock != nil ? Utils.appdafuer : UIColor.white
         }
         return cell
     }

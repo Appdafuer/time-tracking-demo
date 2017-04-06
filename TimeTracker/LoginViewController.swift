@@ -9,12 +9,15 @@
 import Foundation
 import UIKit
 import Alamofire
+import NVActivityIndicatorView
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var textFieldUserID: UITextField!
     @IBOutlet weak var textFieldAPIKey: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
+
+    var holderView = HolderView(frame: CGRect.zero)
 
     // MARK: Actions
     @IBAction func textFieldUserIDChanged(_ sender: UITextField) {
@@ -30,14 +33,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     // MARK: Start Settings
+    override func viewDidAppear(_ animated: Bool) {
+        textFieldUserID.becomeFirstResponder()
+        textFieldUserID.text = ""
+        textFieldAPIKey.text = ""
+    }
+
     override func viewDidLoad() {
         textFieldUserID.delegate = self
         textFieldAPIKey.delegate = self
-
         self.navigationItem.title = "Login"
 
         let autValues = LoginLogicSingelton.sharedInstance.loadAuthorizationValues()
         if let autValues = autValues {
+            LoadingViewGenerator.setView()
             LoginLogicSingelton.sharedInstance.testAuthorizationValues(userName: autValues.userName, apiKey: autValues.apiKey) { (valid) in
                 if valid {
                     LoginLogicSingelton.sharedInstance.saveAuthorizationValues(userName: autValues.userName, apiKey: autValues.apiKey)
@@ -47,14 +56,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        textFieldUserID.becomeFirstResponder()
-        textFieldUserID.text = ""
-        textFieldAPIKey.text = ""
-    }
-
     // MARK: Login
     private func login() {
+        LoadingViewGenerator.setView()
         guard let userName = textFieldUserID.text else {return}
         guard let apiKey = textFieldAPIKey.text else {return}
 
@@ -63,6 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 LoginLogicSingelton.sharedInstance.saveAuthorizationValues(userName: userName, apiKey: apiKey)
                 self.pushNextViewController()
             } else {
+                LoadingViewGenerator.dismissView()
                 self.authorizationAlert()
             }
         }

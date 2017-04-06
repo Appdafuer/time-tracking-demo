@@ -28,20 +28,19 @@ class ServiceSelectionTableViewController: UITableViewController {
             headers[authorizationHeader.key] = authorizationHeader.value
         }
 
-        Alamofire.request("https://my.clockodo.com/api/services", headers: headers).responseJSON { response in
-
-            if let JSON = response.result.value {
-                self.allServices = []
-                guard let casted = JSON as? [String:Any] else {return}
-                guard let services = casted["services"] as? [Any] else {return}
-                for service in services {
-                    let castedService = (Service(fromDictionary: service)!)
-                    self.allServices?.append(castedService)
+        Alamofire.request("https://my.clockodo.com/api/services", headers: headers).responseJSON { [weak self] response in
+            guard let this = self else { return }
+                if let JSON = response.result.value {
+                    this.allServices = []
+                    guard let casted = JSON as? [String:Any] else {return}
+                    guard let services = casted["services"] as? [Any] else {return}
+                    for service in services {
+                        let castedService = (Service(fromDictionary: service)!)
+                        this.allServices?.append(castedService)
+                    }
+                    this.tableView.reloadData()
+                    LoadingViewGenerator.dismissView()
                 }
-
-                self.tableView.reloadData()
-            }
-
         }
 
     }

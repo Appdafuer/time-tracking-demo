@@ -17,7 +17,6 @@ class TicketCell: UICollectionViewCell {
     @IBOutlet weak var lblKunde: UILabel!
     @IBOutlet weak var lblProject: UILabel!
     @IBOutlet weak var lblBeschreibung: UILabel!
-    @IBOutlet weak var lblNumber: UILabel!
 
     var beschreibung: String = ""
     var viewController: ViewController?
@@ -29,14 +28,12 @@ class TicketCell: UICollectionViewCell {
     }
 
     @IBAction func ticketTouched(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // swiftlint:disable:next force_cast
-        let profileNC = storyboard.instantiateViewController(withIdentifier: "ProjectNavController") as! UINavigationController
-        // swiftlint:disable:next force_cast
-        let vc = profileNC.topViewController as! ProjectSelectionViewController
-        vc.delegate = viewController
-        vc.index = index
-        viewController?.present(profileNC, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Löschen", message: "Wollen sie das Ticket wirklich löschen?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            self.viewController?.removeTicket(atIndex: self.index)
+        }))
+        self.viewController?.present(alert, animated: true, completion: nil)
     }
 
     // MARK: Settings

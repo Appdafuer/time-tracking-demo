@@ -7,8 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 class Utils {
+
+    // MARK: Colors
+    static let appdafuer = UIColor(red: 23.0 / 255.0, green: 204.0 / 255.0, blue: 214.0 / 255.0, alpha: 1.0)
+    static let white = UIColor.white
+    static let black = UIColor.black
+    static let clear = UIColor.clear
 
     // MARK: Date Formatter
     static func dateFromString(stringDate: String) -> Date? {
@@ -34,7 +41,5 @@ class Utils {
         tmp = tmp%60
 
         return String(format: "%02d:%02d:%02d", hours, min, tmp)
-
     }
-
 }

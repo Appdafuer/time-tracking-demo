@@ -17,7 +17,7 @@ class ProjectSelectionViewController: UITableViewController {
     var index: Int!
 
     // MARK: Customer Request
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
 
         setNavBar()
@@ -32,8 +32,13 @@ class ProjectSelectionViewController: UITableViewController {
             if let JSON = response.result.value {
                 self.projects = CustomersParser().getAllProjects(data: JSON)
                 self.tableView.reloadData()
+                LoadingViewGenerator.dismissView()
             }
         }
+
+    }
+    override func viewDidLoad() {
+        LoadingViewGenerator.setView()
     }
 
     // MARK: Navigation Bar
@@ -62,6 +67,7 @@ class ProjectSelectionViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let selectedProject = projects?[indexPath.row] {
+            LoadingViewGenerator.setView()
             // swiftlint:disable:next force_cast
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ServiceSelectionViewController") as! ServiceSelectionTableViewController
             vc.delegate = delegate
