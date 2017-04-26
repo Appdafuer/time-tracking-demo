@@ -23,7 +23,9 @@ class Project {
     let projectName: String
     let projectID: Int
     var beschreibung: String?
+    var isClock: Bool?
     var clock: Clock?
+    var entry: Entry?
     var service: Service
 
     // MARK: Initializer

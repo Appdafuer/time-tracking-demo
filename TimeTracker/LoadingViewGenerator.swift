@@ -15,6 +15,7 @@ class LoadingViewGenerator {
         let transparentLoadingView = UIView()
 
         transparentLoadingView.backgroundColor = UIColor(white: 1, alpha: 0)
+        transparentLoadingView.layer.zPosition = 100000000
         let loadingView = LoadingView()
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         transparentLoadingView.addSubview(loadingView)
@@ -28,6 +29,7 @@ class LoadingViewGenerator {
 
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.window?.addViewFullscreen(transparentLoadingView)
+        appDelegate?.window?.isUserInteractionEnabled = false
     }
 
     static func dismissView() {
@@ -39,6 +41,7 @@ class LoadingViewGenerator {
                 subview.removeFromSuperview()
             }
         }
+        appDelegate?.window?.isUserInteractionEnabled = true
     }
 
 }

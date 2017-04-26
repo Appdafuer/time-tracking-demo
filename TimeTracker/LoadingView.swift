@@ -59,6 +59,7 @@ class LoadingView: UIView {
         loginIndicatorFrame.translatesAutoresizingMaskIntoConstraints = false
         let animation = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: .pacman, color: .white, padding: 0)
         animation.startAnimating()
+        animation.isUserInteractionEnabled = false
         loginIndicatorFrame.addSubview(animation)
         self.addSubview(loginIndicatorFrame)
     }

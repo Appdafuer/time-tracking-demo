@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		320062131E93979A0036D83B /* ClockLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320062121E93979A0036D83B /* ClockLogic.swift */; };
+		321372611EB0D7C400909CA9 /* FixedEntryLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321372601EB0D7C400909CA9 /* FixedEntryLogic.swift */; };
 		321694CB1E8BB3B900353DB0 /* ProjectsSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321694CA1E8BB3B900353DB0 /* ProjectsSerializer.swift */; };
 		321EBB661E9628DC0064E283 /* OvalLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321EBB651E9628DC0064E283 /* OvalLayer.swift */; };
 		321EBB681E9631140064E283 /* HolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321EBB671E9631140064E283 /* HolderView.swift */; };
@@ -25,6 +26,8 @@
 		324271531E94F9E6001E1A73 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324271521E94F9E6001E1A73 /* LoadingView.swift */; };
 		324271551E9520BF001E1A73 /* LoadingViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324271541E9520BF001E1A73 /* LoadingViewGenerator.swift */; };
 		324271571E95380F001E1A73 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324271561E95380F001E1A73 /* UIView+Extensions.swift */; };
+		324402111EB0935C0026793E /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324402101EB0935C0026793E /* Entry.swift */; };
+		324402131EB09AAB0026793E /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324402121EB09AAB0026793E /* EntryDetailViewController.swift */; };
 		325174971E72B678003CEC2D /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325174961E72B678003CEC2D /* Project.swift */; };
 		325174991E72B971003CEC2D /* CustomersParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325174981E72B971003CEC2D /* CustomersParser.swift */; };
 		3251749B1E72D76A003CEC2D /* ProjectSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */; };
@@ -61,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		320062121E93979A0036D83B /* ClockLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockLogic.swift; sourceTree = "<group>"; };
+		321372601EB0D7C400909CA9 /* FixedEntryLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedEntryLogic.swift; sourceTree = "<group>"; };
 		321694CA1E8BB3B900353DB0 /* ProjectsSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsSerializer.swift; sourceTree = "<group>"; };
 		321EBB651E9628DC0064E283 /* OvalLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OvalLayer.swift; sourceTree = "<group>"; };
 		321EBB671E9631140064E283 /* HolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HolderView.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 		324271521E94F9E6001E1A73 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		324271541E9520BF001E1A73 /* LoadingViewGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewGenerator.swift; sourceTree = "<group>"; };
 		324271561E95380F001E1A73 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		324402101EB0935C0026793E /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		324402121EB09AAB0026793E /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
 		325174961E72B678003CEC2D /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		325174981E72B971003CEC2D /* CustomersParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersParser.swift; sourceTree = "<group>"; };
 		3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSelectionViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 				32631EF71E8BEB97004AEFB7 /* LoginViewController.swift */,
 				3251749A1E72D76A003CEC2D /* ProjectSelectionViewController.swift */,
 				322A62171E7808CF00905E94 /* ServiceSelectionTableViewController.swift */,
+				324402121EB09AAB0026793E /* EntryDetailViewController.swift */,
 				326DA2641E76B8FA0054564F /* AlertGenerator.swift */,
 				3269AD041E71435F008563FC /* Main.storyboard */,
 				324271541E9520BF001E1A73 /* LoadingViewGenerator.swift */,
@@ -172,6 +179,7 @@
 				32631EF91E8C05E3004AEFB7 /* LoginLogicSingelton.swift */,
 				32241D211E927BB000402B06 /* TicketLoader.swift */,
 				320062121E93979A0036D83B /* ClockLogic.swift */,
+				321372601EB0D7C400909CA9 /* FixedEntryLogic.swift */,
 			);
 			name = "Business Logic";
 			sourceTree = "<group>";
@@ -192,6 +200,7 @@
 				322A621B1E780AAC00905E94 /* Service.swift */,
 				32241D231E92891400402B06 /* Clock.swift */,
 				324271521E94F9E6001E1A73 /* LoadingView.swift */,
+				324402101EB0935C0026793E /* Entry.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -480,6 +489,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				324402111EB0935C0026793E /* Entry.swift in Sources */,
 				324271571E95380F001E1A73 /* UIView+Extensions.swift in Sources */,
 				321EBB661E9628DC0064E283 /* OvalLayer.swift in Sources */,
 				325174971E72B678003CEC2D /* Project.swift in Sources */,
@@ -491,12 +501,14 @@
 				324271551E9520BF001E1A73 /* LoadingViewGenerator.swift in Sources */,
 				3269AD031E71435F008563FC /* ViewController.swift in Sources */,
 				325174991E72B971003CEC2D /* CustomersParser.swift in Sources */,
+				321372611EB0D7C400909CA9 /* FixedEntryLogic.swift in Sources */,
 				321EBB6C1E9643B50064E283 /* TriangleLayer.swift in Sources */,
 				322A621C1E780AAC00905E94 /* Service.swift in Sources */,
 				326DA2651E76B8FA0054564F /* AlertGenerator.swift in Sources */,
 				32241D241E92891400402B06 /* Clock.swift in Sources */,
 				321EBB6E1E9656850064E283 /* RectangleLayer.swift in Sources */,
 				320062131E93979A0036D83B /* ClockLogic.swift in Sources */,
+				324402131EB09AAB0026793E /* EntryDetailViewController.swift in Sources */,
 				321EBB6A1E963CA00064E283 /* AnimationViewController.swift in Sources */,
 				321EBB701E9666100064E283 /* ArcLayer.swift in Sources */,
 				32241D221E927BB000402B06 /* TicketLoader.swift in Sources */,

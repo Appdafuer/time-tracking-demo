@@ -71,9 +71,18 @@ class ServiceSelectionTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let selectedService = allServices?[indexPath.row] {
-            self.dismiss(animated: true, completion: nil)
             project.service = selectedService
-            delegate.projectSelected(project: project, atIndex: index)
+            if project.isClock! {
+                self.dismiss(animated: true, completion: nil)
+                delegate.projectSelected(project: project, atIndex: index)
+            } else {
+                // swiftlint:disable:next force_cast
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EntryDetailViewController") as! EntryDetailViewController
+                vc.project = self.project
+                vc.delegate = self.delegate
+                vc.index = self.index
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
 

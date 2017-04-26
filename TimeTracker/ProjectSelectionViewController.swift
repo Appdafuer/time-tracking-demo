@@ -15,6 +15,7 @@ class ProjectSelectionViewController: UITableViewController {
     var projects: [Project]?
     weak var delegate: ViewController?
     var index: Int!
+    var isClock: Bool!
 
     // MARK: Customer Request
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +68,7 @@ class ProjectSelectionViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let selectedProject = projects?[indexPath.row] {
+            selectedProject.isClock = self.isClock
             LoadingViewGenerator.setView()
             // swiftlint:disable:next force_cast
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ServiceSelectionViewController") as! ServiceSelectionTableViewController

@@ -13,13 +13,14 @@ class TicketCell: UICollectionViewCell {
 
     @IBOutlet weak var bBeschreibung: UIButton!
     @IBOutlet weak var bTicket: UIButton!
+    @IBOutlet weak var bFixeintrag: UIButton!
 
     @IBOutlet weak var lblKunde: UILabel!
     @IBOutlet weak var lblProject: UILabel!
     @IBOutlet weak var lblBeschreibung: UILabel!
 
     var beschreibung: String = ""
-    var viewController: ViewController?
+    var viewController: ViewController!
     var index: Int!
 
     // MARK: Touch Actions
@@ -36,6 +37,15 @@ class TicketCell: UICollectionViewCell {
         self.viewController?.present(alert, animated: true, completion: nil)
     }
 
+    @IBAction func setFixedEntry(_ sender: Any) {
+        // swiftlint:disable:next force_cast
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EntryDetailViewController") as! EntryDetailViewController
+        vc.project = viewController.projectsArray[index]
+        vc.delegate = self.viewController
+        vc.index = self.index
+        self.viewController.navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
     // MARK: Settings
     override func awakeFromNib() {
         super.awakeFromNib()

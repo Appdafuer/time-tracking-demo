@@ -14,7 +14,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var projects: UICollectionView!
 
-    private var projectsArray: [Project?] =  []
+    var projectsArray: [Project?] =  []
     var selectedService: Service?
 
     var timer: Timer?
@@ -74,6 +74,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     func addTicket() {
+        let alert = UIAlertController(title: "Select", message: "Wollen sie einen festen Zeiteintrag oder eine Uhr starten?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Uhr", style: .default, handler: {_ in
+            self.initialzeSelcetionViewControllers(isClock: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Eintrag", style: .default, handler: {_ in
+            self.initialzeSelcetionViewControllers(isClock: false)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func initialzeSelcetionViewControllers(isClock: Bool) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         // swiftlint:disable:next force_cast
         let profileNC = storyboard.instantiateViewController(withIdentifier: "ProjectNavController") as! UINavigationController
@@ -81,6 +93,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let vc = profileNC.topViewController as! ProjectSelectionViewController
         vc.delegate = self
         vc.index = projectsArray.count
+        vc.isClock = isClock
         self.present(profileNC, animated: true, completion: nil)
     }
 
@@ -114,8 +127,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             projectsArray.append(project)
         } else {
             projectsArray[index] = project
+            self.saveDataInUserDefaults()
         }
-        setProjectDescription(index: index)
+        if project.entry == nil {
+            setProjectDescription(index: index)
+        }        
         projects.reloadData()
     }
 
@@ -128,7 +144,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.projectsArray[index]?.beschreibung = newText
             self.projects.reloadData()
             self.saveDataInUserDefaults()
-            self.toggleTimer(forProject: self.projectsArray[index])
+            if (self.projectsArray[index]?.isClock)! {
+                self.toggleTimer(forProject: self.projectsArray[index])
+            } else {
+                self.setEntry()
+            }
         }
     }
 
@@ -170,6 +190,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
 
         }
+    }
+
+    // MARK: Fixed Entry
+    private func setEntry() {
+
     }
 
     @objc func timerFired(_ timer: Timer) {
